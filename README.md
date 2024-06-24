@@ -25,3 +25,28 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## Running With Nginx
+This simulates the behaviour with our reverse proxy servers on dev and prod
+```shell
+#install dependencies
+sudo apt update
+sudo apt install nginx
+sudo apt install docker
+
+#start services
+sudo service docker start
+sudo service nginx start
+
+#apply nginx config
+sudo cp default /etc/nginx/sites-enabled
+sudo service nginx restart
+
+#build and run container
+docker build -t angular:test .
+docker run --rm -it -p 6003:6003 angular:test
+```
+
+The application would be accessible through http://localhost:6003.
+
+To access application through nginx http://localhost:81/visits-alpha.
