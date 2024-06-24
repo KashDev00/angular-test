@@ -1,0 +1,15 @@
+server {
+    listen       81;
+    listen  [::]:81;
+    server_name  localhost;
+
+    location /visits-alpha {
+        proxy_pass http://localhost:6003/;
+        proxy_set_header Host $host;
+    }
+
+    location /assets {
+        proxy_pass http://localhost:6003/assets;
+        proxy_set_header Host $host;
+    }
+}
